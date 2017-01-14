@@ -28,6 +28,7 @@ class Movies(TMDB):
         'images': '/{id}/images',
         'keywords': '/{id}/keywords',
         'releases': '/{id}/releases',
+        'release_dates': '/{id}/release_dates',
         'videos': '/{id}/videos',
         'translations': '/{id}/translations',
         'similar_movies': '/{id}/similar_movies',
@@ -144,6 +145,28 @@ class Movies(TMDB):
             A dict respresentation of the JSON returned from the API.
         """
         path = self._get_id_path('releases')
+
+        response = self._GET(path, kwargs)
+        self._set_attrs_to_values(response)
+        return response
+
+    def release_dates(self, **kwargs):
+        """
+        Get the release date along with the certification for a movie.
+
+        Release dates support different types:
+
+            1. Premiere
+            2. Theatrical (limited)
+            3. Theatrical
+            4. Digital
+            5. Physical
+            6. TV
+
+        Returns:
+            A dict representation of the JSON returned from the API.
+        """
+        path = self._get_id_path('release_dates')
 
         response = self._GET(path, kwargs)
         self._set_attrs_to_values(response)
